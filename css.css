@@ -1,0 +1,75 @@
+/* stylesheet */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.calc-container {
+  display: grid;
+  grid-template-columns: repeat(1, auto);
+  border: 5px solid red;
+  padding: 5px;
+}
+
+.display {
+  height: 60px;
+  margin-bottom: 5px;
+  border: 1px solid green;
+}
+
+.input {
+  height: 30px;
+  margin-bottom: 5px;
+  border: 1px solid green;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 50px);
+  grid-template-rows: repeat(5, 50px);
+  grid-template-areas:
+    'number number number operator1'
+    'number number number operator2'
+    'number number number operator3'
+    'number number number operator4'
+    'clear . equals equals';
+}
+
+[class^='number-'],
+[class^='operator-'] {
+  border: 1px solid green;
+}
+
+.operator-add {
+  grid-area: operator1;
+}
+
+.operator-subtract {
+  grid-area: operator2;
+}
+
+.operator-multiply {
+  grid-area: operator3;
+}
+
+.operator-divide {
+  grid-area: operator4;
+}
+
+.operator-equals {
+  grid-area: equals;
+}
+
+.number-clear {
+  grid-area: clear;
+  grid-column: 1 / span 2;
+  grid-row: 5 / span 2;
+}
