@@ -9,6 +9,7 @@ const numberEles = Array.from(document.querySelectorAll("[class^='number']"));
 const operatorEles = Array.from(
   document.querySelectorAll("[class^='operator'")
 );
+const operatorClrEle = document.querySelector('.operator-clear');
 
 console.log(numberEles);
 
@@ -81,3 +82,14 @@ operatorEles.forEach(button => {
     }
   });
 });
+
+// Clear calculator display
+
+operatorClrEle.addEventListener('click', clearDisplay);
+
+function clearDisplay() {
+  displayEle.textContent = '';
+  inputEle.textContent = '';
+  operator = undefined;
+  isActive = true;
+}

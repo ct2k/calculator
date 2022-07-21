@@ -68,7 +68,7 @@ body {
   grid-area: equals;
 }
 
-.number-clear {
+.operator-clear {
   grid-area: clear;
   grid-column: 1 / span 2;
   grid-row: 5 / span 2;
