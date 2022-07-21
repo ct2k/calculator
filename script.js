@@ -70,6 +70,18 @@ operatorEles.forEach(button => {
       operator = '+';
       console.log(array);
       console.log(calculation);
+    } else if (button === document.querySelector('.operator-subtract')) {
+      array.push(calculation);
+      inputEle.textContent = '';
+      operator = '-';
+    } else if (button === document.querySelector('.operator-multiply')) {
+      array.push(calculation);
+      inputEle.textContent = '';
+      operator = '*';
+    } else if (button === document.querySelector('.operator-divide')) {
+      array.push(calculation);
+      inputEle.textContent = '';
+      operator = '/';
     }
     if (button === document.querySelector('.operator-equals')) {
       if (isActive && operator !== undefined) {
