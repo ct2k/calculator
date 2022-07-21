@@ -55,6 +55,8 @@ function operate(operator, num1, num2) {
 
 let array = [];
 let calculation = 0;
+let operator;
+let isActive = true;
 
 // Calculate the result
 
@@ -64,12 +66,18 @@ operatorEles.forEach(button => {
       array.push(calculation);
       calculation = 0;
       inputEle.textContent = '';
+      operator = '+';
       console.log(array);
       console.log(calculation);
     }
     if (button === document.querySelector('.operator-equals')) {
-      array.push(calculation);
-      displayEle.textContent = operate('+', array[0], array[1]);
+      if (isActive && operator !== undefined) {
+        array.push(calculation);
+        displayEle.textContent = operate(operator, array[0], array[1]);
+        array = [];
+        calculation = 0;
+        isActive = false;
+      }
     }
   });
 });
