@@ -13,29 +13,45 @@ const operatorClrEle = document.querySelector('.operator-clear');
 
 console.log(numberEles);
 
+let container = 0;
+
 numberEles.forEach(button => {
   button.addEventListener('click', function () {
-    calculation = Number((inputEle.textContent += button.textContent));
-    console.log(calculation);
+    container = Number((inputEle.textContent += button.textContent));
+    console.log(container);
   });
 });
+
+let calculation = 0;
 
 // Basic math functions
 
 function add(num1, num2) {
-  return num1 + num2;
+  for (let i = 0; i < num1.length; i++) {
+    calculation = num1[i] + num2;
+  }
+  return (array = [calculation]);
 }
 
 function subtract(num1, num2) {
-  return num1 - num2;
+  for (let i = 0; i < num1.length; i++) {
+    calculation = num1[i] - num2;
+  }
+  return (array = [calculation]);
 }
 
 function multiply(num1, num2) {
-  return num1 * num2;
+  for (let i = 0; i < num1.length; i++) {
+    calculation = num1[i] * num2;
+  }
+  return (array = [calculation]);
 }
 
 function divide(num1, num2) {
-  return num1 / num2;
+  for (let i = 0; i < num1.length; i++) {
+    calculation = num1[i] / num2;
+  }
+  return (array = [calculation]);
 }
 
 function operate(operator, num1, num2) {
@@ -55,8 +71,7 @@ function operate(operator, num1, num2) {
 // Variables
 
 let array = [];
-let calculation = 0;
-let operator;
+let operator = undefined;
 let isActive = true;
 
 // Calculate the result
@@ -64,32 +79,81 @@ let isActive = true;
 operatorEles.forEach(button => {
   button.addEventListener('click', function () {
     if (button === document.querySelector('.operator-add')) {
-      array.push(calculation);
-      calculation = 0;
       inputEle.textContent = '';
-      operator = '+';
-      console.log(array);
-      console.log(calculation);
+      if (calculation === 0) {
+        array.push(container);
+        operator = button.textContent;
+        operate(operator, array, calculation);
+        displayEle.textContent = calculation;
+      } else if (calculation !== 0 && operator === '+') {
+        operator = button.textContent;
+        operate(operator, array, container);
+        displayEle.textContent = calculation;
+        container = 0; // Prevents user from spamming operator with last value
+      } else if (calculation !== 0 && operator !== '+') {
+        operate(operator, array, container);
+        displayEle.textContent = calculation;
+        container = 0;
+        operator = button.textContent;
+      }
     } else if (button === document.querySelector('.operator-subtract')) {
-      array.push(calculation);
       inputEle.textContent = '';
-      operator = '-';
+      if (calculation === 0) {
+        array.push(container);
+        operator = button.textContent;
+        operate(operator, array, calculation);
+        displayEle.textContent = calculation;
+      } else if (calculation !== 0 && operator === '-') {
+        operator = button.textContent;
+        operate(operator, array, container);
+        displayEle.textContent = calculation;
+        container = 0;
+      } else if (calculation !== 0 && operator !== '-') {
+        operate(operator, array, container);
+        displayEle.textContent = calculation;
+        container = 0;
+        operator = button.textContent;
+      }
     } else if (button === document.querySelector('.operator-multiply')) {
-      array.push(calculation);
       inputEle.textContent = '';
-      operator = '*';
+      if (calculation === 0) {
+        array.push(container);
+        operator = button.textContent;
+        container = 1; // Prevents the first calculation being multiplied by itself
+        operate(operator, array, container);
+        displayEle.textContent = calculation;
+      } else if (calculation !== 0 && operator === '*') {
+        operate(operator, array, container);
+        displayEle.textContent = calculation;
+      } else if (calculation !== 0 && operate !== '*') {
+        operate(operator, array, container);
+        displayEle.textContent = calculation;
+        operator = button.textContent;
+      }
     } else if (button === document.querySelector('.operator-divide')) {
-      array.push(calculation);
       inputEle.textContent = '';
-      operator = '/';
+      if (calculation === 0) {
+        array.push(container);
+        operator = button.textContent;
+        container = 1; // Prevents division by 0
+        operate(operator, array, container);
+        displayEle.textContent = calculation;
+      } else if (calculation !== 0 && operator === '/') {
+        operate(operator, array, container);
+        displayEle.textContent = calculation;
+      } else if (calculation !== 0 && operator !== '/') {
+        operate(operator, array, container);
+        displayEle.textContent = calculation;
+        operator = button.textContent;
+      }
     }
     if (button === document.querySelector('.operator-equals')) {
       if (isActive && operator !== undefined) {
-        array.push(calculation);
-        displayEle.textContent = operate(operator, array[0], array[1]);
-        array = [];
-        calculation = 0;
-        isActive = false;
+        displayEle.textContent = operate(operator, array, container);
+        operator = undefined;
+        container = 0;
+        inputEle.textContent = '';
+        // isActive = false; // Disables equals button
       }
     }
   });
