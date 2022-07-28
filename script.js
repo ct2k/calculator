@@ -166,6 +166,8 @@ function clearDisplay() {
   displayEle.textContent = '';
   inputEle.textContent = '';
   operator = undefined;
+  calculation = 0;
+  array = [];
 }
 
 // Round to 2 decimal places
