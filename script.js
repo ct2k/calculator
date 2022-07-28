@@ -84,15 +84,15 @@ operatorEles.forEach(button => {
         array.push(container);
         operator = button.textContent;
         operate(operator, array, calculation);
-        displayEle.textContent = calculation;
+        displayEle.textContent = roundDeci(calculation);
       } else if (calculation !== 0 && operator === '+') {
         operator = button.textContent;
         operate(operator, array, container);
-        displayEle.textContent = calculation;
+        displayEle.textContent = roundDeci(calculation);
         container = 0; // Prevents user from spamming operator with last value
       } else if (calculation !== 0 && operator !== '+') {
         operate(operator, array, container);
-        displayEle.textContent = calculation;
+        displayEle.textContent = roundDeci(calculation);
         container = 0;
         operator = button.textContent;
       }
@@ -102,15 +102,15 @@ operatorEles.forEach(button => {
         array.push(container);
         operator = button.textContent;
         operate(operator, array, calculation);
-        displayEle.textContent = calculation;
+        displayEle.textContent = roundDeci(calculation);
       } else if (calculation !== 0 && operator === '-') {
         operator = button.textContent;
         operate(operator, array, container);
-        displayEle.textContent = calculation;
+        displayEle.textContent = roundDeci(calculation);
         container = 0;
       } else if (calculation !== 0 && operator !== '-') {
         operate(operator, array, container);
-        displayEle.textContent = calculation;
+        displayEle.textContent = roundDeci(calculation);
         container = 0;
         operator = button.textContent;
       }
@@ -121,13 +121,13 @@ operatorEles.forEach(button => {
         operator = button.textContent;
         container = 1; // Prevents the first calculation being multiplied by itself
         operate(operator, array, container);
-        displayEle.textContent = calculation;
+        displayEle.textContent = roundDeci(calculation);
       } else if (calculation !== 0 && operator === '*') {
         operate(operator, array, container);
-        displayEle.textContent = calculation;
+        displayEle.textContent = roundDeci(calculation);
       } else if (calculation !== 0 && operate !== '*') {
         operate(operator, array, container);
-        displayEle.textContent = calculation;
+        displayEle.textContent = roundDeci(calculation);
         operator = button.textContent;
       }
     } else if (button === document.querySelector('.operator-divide')) {
@@ -137,19 +137,20 @@ operatorEles.forEach(button => {
         operator = button.textContent;
         container = 1; // Prevents division by 0
         operate(operator, array, container);
-        displayEle.textContent = calculation;
+        displayEle.textContent = roundDeci(calculation);
       } else if (calculation !== 0 && operator === '/') {
         operate(operator, array, container);
-        displayEle.textContent = calculation;
+        displayEle.textContent = roundDeci(calculation);
       } else if (calculation !== 0 && operator !== '/') {
         operate(operator, array, container);
-        displayEle.textContent = calculation;
+        displayEle.textContent = roundDeci(calculation);
         operator = button.textContent;
       }
     }
     if (button === document.querySelector('.operator-equals')) {
       if (isActive && operator !== undefined) {
-        displayEle.textContent = operate(operator, array, container);
+        operate(operator, array, container);
+        displayEle.textContent = roundDeci(calculation);
         operator = undefined;
         container = 0;
         inputEle.textContent = '';
@@ -168,4 +169,15 @@ function clearDisplay() {
   inputEle.textContent = '';
   operator = undefined;
   isActive = true;
+}
+
+// Round to 2 decimal places
+
+function roundDeci(num) {
+  const toString = num.toString();
+  const split = toString.split('');
+  if (split.includes('.')) {
+    split.splice(split.indexOf('.') + 3);
+  }
+  return Number(split.join(''));
 }
