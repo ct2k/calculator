@@ -72,7 +72,6 @@ function operate(operator, num1, num2) {
 
 let array = [];
 let operator = undefined;
-let isActive = true;
 
 // Calculate the result
 
@@ -148,13 +147,12 @@ operatorEles.forEach(button => {
       }
     }
     if (button === document.querySelector('.operator-equals')) {
-      if (isActive && operator !== undefined) {
+      if (operator !== undefined) {
         operate(operator, array, container);
         displayEle.textContent = roundDeci(calculation);
         operator = undefined;
         container = 0;
         inputEle.textContent = '';
-        // isActive = false; // Disables equals button
       }
     }
   });
@@ -168,7 +166,6 @@ function clearDisplay() {
   displayEle.textContent = '';
   inputEle.textContent = '';
   operator = undefined;
-  isActive = true;
 }
 
 // Round to 2 decimal places
