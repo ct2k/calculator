@@ -45,7 +45,8 @@ body {
 
 [class^='number-'],
 [class^='operator-'],
-.separator-decimal {
+.separator-decimal,
+.del {
   border: 1px solid green;
 }
 

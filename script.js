@@ -202,3 +202,13 @@ deciBtn.addEventListener('click', function () {
   if (inputEle.textContent.includes('.')) return;
   Number((inputEle.textContent += deciBtn.textContent));
 });
+
+// Delete button
+
+const delBtn = document.querySelector('.del');
+
+delBtn.addEventListener('click', function () {
+  let slice = inputEle.textContent.slice(0, -1);
+  container = Number((inputEle.textContent = slice));
+  console.log(container);
+});
