@@ -193,3 +193,12 @@ function checkForZero(num) {
     inputEle.textContent = '';
   }
 }
+
+// Disable decimal button if there's already one in the display
+
+const deciBtn = document.querySelector('.separator-decimal');
+
+deciBtn.addEventListener('click', function () {
+  if (inputEle.textContent.includes('.')) return;
+  Number((inputEle.textContent += deciBtn.textContent));
+});
