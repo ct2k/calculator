@@ -139,20 +139,19 @@ operatorEles.forEach(button => {
         displayEle.textContent = roundDeci(calculation);
       } else if (calculation !== 0 && operator === '/') {
         operate(operator, array, container);
-        displayEle.textContent = roundDeci(calculation);
+        checkForZero(calculation);
       } else if (calculation !== 0 && operator !== '/') {
         operate(operator, array, container);
-        displayEle.textContent = roundDeci(calculation);
+        checkForZero(calculation);
         operator = button.textContent;
       }
     }
     if (button === document.querySelector('.operator-equals')) {
       if (operator !== undefined) {
         operate(operator, array, container);
-        displayEle.textContent = roundDeci(calculation);
+        checkForZero(calculation);
         operator = undefined;
         container = 0;
-        inputEle.textContent = '';
       }
     }
   });
@@ -179,4 +178,18 @@ function roundDeci(num) {
     split.splice(split.indexOf('.') + 3);
   }
   return Number(split.join(''));
+}
+
+// Prevent division by zero
+
+function checkForZero(num) {
+  if (num === Infinity) {
+    displayEle.textContent = "Can't divide by zero!";
+    operator = undefined;
+    array = [];
+    calculation = NaN;
+  } else {
+    displayEle.textContent = roundDeci(num);
+    inputEle.textContent = '';
+  }
 }
