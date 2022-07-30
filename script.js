@@ -78,84 +78,50 @@ let operator = undefined;
 operatorEles.forEach(button => {
   button.addEventListener('click', function () {
     if (button === document.querySelector('.operator-add')) {
-      inputEle.textContent = '';
-      if (calculation === 0) {
-        array.push(container);
-        operator = button.textContent;
-        operate(operator, array, calculation);
-        displayEle.textContent = roundDeci(calculation);
-      } else if (calculation !== 0 && operator === '+') {
-        operator = button.textContent;
-        operate(operator, array, container);
-        displayEle.textContent = roundDeci(calculation);
-        container = 0; // Prevents user from spamming operator with last value
-      } else if (calculation !== 0 && operator !== '+') {
-        operate(operator, array, container);
-        displayEle.textContent = roundDeci(calculation);
-        container = 0;
-        operator = button.textContent;
-      }
+      operatorConditionalCheck(button);
     } else if (button === document.querySelector('.operator-subtract')) {
-      inputEle.textContent = '';
-      if (calculation === 0) {
-        array.push(container);
-        operator = button.textContent;
-        operate(operator, array, calculation);
-        displayEle.textContent = roundDeci(calculation);
-      } else if (calculation !== 0 && operator === '-') {
-        operator = button.textContent;
-        operate(operator, array, container);
-        displayEle.textContent = roundDeci(calculation);
-        container = 0;
-      } else if (calculation !== 0 && operator !== '-') {
-        operate(operator, array, container);
-        displayEle.textContent = roundDeci(calculation);
-        container = 0;
-        operator = button.textContent;
-      }
+      operatorConditionalCheck(button);
     } else if (button === document.querySelector('.operator-multiply')) {
-      inputEle.textContent = '';
-      if (calculation === 0) {
-        array.push(container);
-        operator = button.textContent;
-        container = 1; // Prevents the first calculation being multiplied by itself
-        operate(operator, array, container);
-        displayEle.textContent = roundDeci(calculation);
-      } else if (calculation !== 0 && operator === '*') {
-        operate(operator, array, container);
-        displayEle.textContent = roundDeci(calculation);
-      } else if (calculation !== 0 && operate !== '*') {
-        operate(operator, array, container);
-        displayEle.textContent = roundDeci(calculation);
-        operator = button.textContent;
-      }
+      operatorConditionalCheck(button);
     } else if (button === document.querySelector('.operator-divide')) {
-      inputEle.textContent = '';
-      if (calculation === 0) {
-        array.push(container);
-        operator = button.textContent;
-        container = 1; // Prevents division by 0
-        operate(operator, array, container);
-        displayEle.textContent = roundDeci(calculation);
-      } else if (calculation !== 0 && operator === '/') {
-        operate(operator, array, container);
-        checkForZero(calculation);
-      } else if (calculation !== 0 && operator !== '/') {
-        operate(operator, array, container);
-        checkForZero(calculation);
-        operator = button.textContent;
-      }
+      operatorConditionalCheck(button);
+      checkForZero(calculation);
     }
     if (button === document.querySelector('.operator-equals')) {
       if (operator !== undefined) {
         operate(operator, array, container);
-        checkForZero(calculation);
         operator = undefined;
         container = 0;
       }
     }
   });
 });
+
+function operatorConditionalCheck(button) {
+  inputEle.textContent = '';
+  if (calculation === 0) {
+    array.push(container);
+    operator = button.textContent;
+    if (operator === '*' || operator === '/') {
+      container = 1; // Prevents the first calculation being multiplied by itself or division by 0
+      operate(operator, array, container);
+    } else {
+      operate(operator, array, calculation);
+    }
+    displayEle.textContent = roundDeci(calculation);
+  } else if (calculation !== 0 && operator === button.textContent) {
+    operator = button.textContent;
+    operate(operator, array, container);
+    displayEle.textContent = roundDeci(calculation);
+    container = 0; // Prevents user from spamming operator with last value
+  } else if (calculation !== 0 && operator !== button.textContent) {
+    operate(operator, array, container);
+    displayEle.textContent = roundDeci(calculation);
+    container = 0;
+    operator = button.textContent;
+  }
+  console.log(calculation);
+}
 
 // Clear calculator display
 
@@ -211,4 +177,18 @@ delBtn.addEventListener('click', function () {
   let slice = inputEle.textContent.slice(0, -1);
   container = Number((inputEle.textContent = slice));
   console.log(container);
+});
+
+// Keyboard support
+
+window.addEventListener('keydown', function (event) {
+  const key = event.key;
+  numberEles.forEach(button => {
+    if (key === button.textContent) {
+      container = Number((inputEle.textContent += button.textContent));
+    }
+  });
+  operatorEles.forEach(button => {
+    if (key === button.textContent) operatorConditionalCheck(button);
+  });
 });
