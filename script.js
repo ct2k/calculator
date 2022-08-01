@@ -85,9 +85,7 @@ operatorEles.forEach(button => {
       operatorConditionalCheck(button);
     } else if (button === document.querySelector('.operator-divide')) {
       operatorConditionalCheck(button);
-      checkForZero(calculation);
-    }
-    if (button === document.querySelector('.operator-equals')) {
+    } else if (button === document.querySelector('.operator-equals')) {
       if (operator !== undefined) {
         operate(operator, array, container);
         displayEle.textContent = roundDeci(calculation);
@@ -100,7 +98,7 @@ operatorEles.forEach(button => {
 
 function operatorConditionalCheck(button) {
   inputEle.textContent = '';
-  if (calculation === 0) {
+  if (calculation === 0 && container !== 0) {
     array.push(container);
     operator = button.textContent;
     if (operator === '*' || operator === '/') {
@@ -121,6 +119,7 @@ function operatorConditionalCheck(button) {
     container = 0;
     operator = button.textContent;
   }
+  checkForZero(calculation);
   console.log(calculation);
 }
 
