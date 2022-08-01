@@ -173,11 +173,13 @@ deciBtn.addEventListener('click', function () {
 
 const delBtn = document.querySelector('.del');
 
-delBtn.addEventListener('click', function () {
+delBtn.addEventListener('click', deleteKey);
+
+function deleteKey() {
   let slice = inputEle.textContent.slice(0, -1);
   container = Number((inputEle.textContent = slice));
   console.log(container);
-});
+}
 
 // Keyboard support
 
@@ -190,5 +192,12 @@ window.addEventListener('keydown', function (event) {
   });
   operatorEles.forEach(button => {
     if (key === button.textContent) operatorConditionalCheck(button);
+    if (key === 'Delete') clearDisplay();
   });
+  if (key === deciBtn.textContent) {
+    if (inputEle.textContent.includes('.')) return;
+    container = Number((inputEle.textContent += deciBtn.textContent));
+  }
+  if (key === 'Backspace') deleteKey();
+  console.log(key);
 });
