@@ -90,6 +90,7 @@ operatorEles.forEach(button => {
     if (button === document.querySelector('.operator-equals')) {
       if (operator !== undefined) {
         operate(operator, array, container);
+        displayEle.textContent = roundDeci(calculation);
         operator = undefined;
         container = 0;
       }
