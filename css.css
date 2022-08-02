@@ -3,6 +3,9 @@
 * {
   margin: 0;
   padding: 0;
+  color: #f3f3fc;
+  font-size: 20px;
+  font-family: 'Roboto Mono', monospace;
 }
 
 body {
@@ -10,44 +13,55 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #f3f3fc;
 }
 
 .calc-container {
   display: grid;
   grid-template-columns: repeat(1, auto);
-  border: 5px solid red;
+  border: 10px solid #1d1f63;
   padding: 5px;
+  background-color: #3438b2;
 }
 
 .display {
-  height: 60px;
+  height: 80px;
   margin-bottom: 5px;
-  border: 1px solid green;
+  border: 2px solid #1d1f63;
+  font-size: 40px;
 }
 
 .input {
-  height: 30px;
+  height: 50px;
   margin-bottom: 5px;
-  border: 1px solid green;
+  border: 2px solid #1d1f63;
+  display: flex;
+  align-items: center;
+  padding-left: 3px;
 }
 
 .buttons {
   display: grid;
-  grid-template-columns: repeat(4, 50px);
-  grid-template-rows: repeat(5, 50px);
+  grid-template-columns: repeat(4, 80px);
+  grid-template-rows: repeat(5, 80px);
   grid-template-areas:
     'number number number operator1'
     'number number number operator2'
     'number number number operator3'
     'number number number operator4'
     'clear . equals equals';
+  grid-gap: 3px;
 }
 
 [class^='number-'],
 [class^='operator-'],
 .separator-decimal,
 .del {
-  border: 1px solid green;
+  border: 2px solid #1d1f63;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .operator-add {
@@ -73,5 +87,5 @@ body {
 .operator-clear {
   grid-area: clear;
   grid-column: 1 / span 2;
-  grid-row: 5 / span 2;
+  grid-row: 5 / span 1;
 }
