@@ -89,3 +89,27 @@ body {
   grid-column: 1 / span 2;
   grid-row: 5 / span 1;
 }
+
+[class^='number-']:active,
+[class^='operator-']:active,
+.separator-decimal:active,
+.del:active {
+  transform: scale(0.98);
+  box-shadow: 3px 2px 12px 1px rgba(0, 0, 0, 0.24);
+  background-color: #4e4ccd;
+}
+
+.feedback {
+  animation: press 0.1s 1;
+}
+
+@keyframes press {
+  from {
+    transform: scale (0.98);
+  }
+  to {
+    transform: scale (0.58);
+    box-shadow: 3px 2px 12px 1px rgba(0, 0, 0, 0.24);
+    background-color: #4e4ccd;
+  }
+}

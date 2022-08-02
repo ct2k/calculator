@@ -188,16 +188,28 @@ window.addEventListener('keydown', function (event) {
   numberEles.forEach(button => {
     if (key === button.textContent) {
       container = Number((inputEle.textContent += button.textContent));
+      startAnimation(button);
     }
   });
   operatorEles.forEach(button => {
     if (key === button.textContent) operatorConditionalCheck(button);
     if (key === 'Delete') clearDisplay();
+    if (key === 'Delete') startAnimation(operatorClrEle);
+    if (key === button.textContent) startAnimation(button);
   });
   if (key === deciBtn.textContent) {
     if (inputEle.textContent.includes('.')) return;
     container = Number((inputEle.textContent += deciBtn.textContent));
+    startAnimation(deciBtn);
   }
   if (key === 'Backspace') deleteKey();
+  if (key === 'Backspace') startAnimation(delBtn);
   console.log(key);
 });
+
+function startAnimation(button) {
+  button.classList.remove('feedback');
+  setTimeout(function () {
+    button.classList.add('feedback');
+  }, 1);
+}
